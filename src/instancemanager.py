@@ -33,6 +33,8 @@ class InstanceManager:
 
     def readConfig(self):
         configpath = self.configLocation()
+        if not os.path.isfile(configpath):
+            return
         with open(configpath) as f:
             self.instances = json.load(f)
             for i in self.instances:
