@@ -55,6 +55,7 @@ class PreferencesDialog(QDialog):
         self.ui.urlEdit.clear()
         self.ui.usernameEdit.clear()
         self.ui.passwordEdit.clear()
+        self.ui.validateSslCheckBox.setChecked(True)
 
 
     def currentInstanceChanged(self, row):
@@ -67,6 +68,7 @@ class PreferencesDialog(QDialog):
         self.ui.urlEdit.setText(self.instances[key]['url'])
         self.ui.usernameEdit.setText(self.instances[key]['username'])
         self.ui.passwordEdit.setText(self.instances[key]['password'])
+        self.ui.validateSslCheckBox.setChecked(self.instances[key]['verifySSL'])
 
 
     def testInstance(self):
@@ -75,6 +77,7 @@ class PreferencesDialog(QDialog):
                                 url=self.ui.urlEdit.text(),
                                 username=self.ui.usernameEdit.text(),
                                 password=self.ui.passwordEdit.text(),
+                                verifySSL=self.ui.validateSslCheckBox.isChecked()
                                )
         try:
             net.getFolders()
@@ -90,7 +93,8 @@ class PreferencesDialog(QDialog):
             'name': name,
             'url': self.ui.urlEdit.text(),
             'username': self.ui.usernameEdit.text(),
-            'password': self.ui.passwordEdit.text()
+            'password': self.ui.passwordEdit.text(),
+            'verifySSL': self.ui.validateSslCheckBox.isChecked()
         }
 
         self.clearForm()

@@ -1,5 +1,6 @@
 import unittest
 import pprint
+import os
 from json.decoder import JSONDecodeError
 from nextcloudinstance import NextcloudInstance
 
@@ -11,7 +12,8 @@ class NextcloudInstanceTest(unittest.TestCase):
         self.nextcloud = NextcloudInstance(username=os.environ['TEST_USERNAME'],
                                            password=os.environ['TEST_PASSWORD'],
                                            url=os.environ['TEST_URL'],
-                                           description='test instance')
+                                           description='test instance',
+                                           verifySSL=True)
 
     def test_get(self):
         resp = self.nextcloud.get('foobar')

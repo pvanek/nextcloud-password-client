@@ -6,12 +6,13 @@ class NextcloudInstance:
 
     root_id = '00000000-0000-0000-0000-000000000000'
 
-    def __init__(self, description, url, username, password):
+    def __init__(self, description, url, username, password, verifySSL):
         logging.debug('NextcloudInstance creation: ' + description)
         self.description = description
         self.url = urljoin(url, '/index.php/apps/passwords/api/1.0/')
         self.username = username
         self.password = password
+        self.verifySSL = verifySSL
 
         self.clear()
 
@@ -24,7 +25,9 @@ class NextcloudInstance:
     def get(self, api_url):
         logging.debug('NextcloudInstance.get: ' + api_url)
         resp = requests.get(urljoin(self.url, api_url),
-                            auth=(self.username, self.password))
+                            auth=(self.username, self.password),
+                            verify=self.verifySSL
+                            )
         if (resp.status_code != 200):
             logging.warning('NextcloudInstance.get: ConnectionError = ' + resp.status_code)
             raise ConnectionError('HTTP status code = ' + resp.status_code)

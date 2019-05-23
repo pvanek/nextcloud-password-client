@@ -14,7 +14,8 @@ class InstanceManagerTest(unittest.TestCase):
         'name': 'foo',
         'url': 'http://localhost',
         'username': 'foobar',
-        'password': 'mypass9284*$@%!$)_(*'
+        'password': 'mypass9284*$@%!$)_(*',
+        'verifySSL': True
     }
 
     def setUp(self):

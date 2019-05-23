@@ -71,7 +71,9 @@ class MainWindow(QMainWindow):
             self.ncInstances.append(NextcloudInstance(description=val['name'],
                                                       url=val['url'],
                                                       username=val['username'],
-                                                      password=val['password'])
+                                                      password=val['password'],
+                                                      verifySSL=val['verifySSL']
+                                                     )
                                    )
 
 

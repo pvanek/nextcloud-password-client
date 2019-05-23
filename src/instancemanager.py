@@ -40,6 +40,9 @@ class InstanceManager:
             for i in self.instances:
                 val = self.decryptValue(self.instances[i]['password'])
                 self.instances[i]['password'] = val
+                if not 'verifySSL' in self.instances[i]:
+                    self.instances[i]['verifySSL'] = True
+        print(self.instances)
 
     def writeConfig(self):
         configpath = self.configLocation()

@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file 'preferencesdialog.ui',
 # licensing of 'preferencesdialog.ui' applies.
 #
-# Created: Mon May 20 15:01:50 2019
+# Created: Thu May 23 09:22:15 2019
 #      by: pyside2-uic  running on PySide2 5.12.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -60,16 +60,16 @@ class Ui_PreferencesDialog(object):
         self.usernameLabel = QtWidgets.QLabel(self.groupBox)
         self.usernameLabel.setObjectName("usernameLabel")
         self.gridLayout.addWidget(self.usernameLabel, 2, 0, 1, 2)
+        self.passwordEdit = QtWidgets.QLineEdit(self.groupBox)
+        self.passwordEdit.setEchoMode(QtWidgets.QLineEdit.Password)
+        self.passwordEdit.setObjectName("passwordEdit")
+        self.gridLayout.addWidget(self.passwordEdit, 3, 2, 1, 1)
         self.usernameEdit = QtWidgets.QLineEdit(self.groupBox)
         self.usernameEdit.setObjectName("usernameEdit")
         self.gridLayout.addWidget(self.usernameEdit, 2, 2, 1, 1)
         self.passwordLabel = QtWidgets.QLabel(self.groupBox)
         self.passwordLabel.setObjectName("passwordLabel")
         self.gridLayout.addWidget(self.passwordLabel, 3, 0, 1, 2)
-        self.passwordEdit = QtWidgets.QLineEdit(self.groupBox)
-        self.passwordEdit.setEchoMode(QtWidgets.QLineEdit.Password)
-        self.passwordEdit.setObjectName("passwordEdit")
-        self.gridLayout.addWidget(self.passwordEdit, 3, 2, 1, 1)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.testButton = QtWidgets.QPushButton(self.groupBox)
@@ -78,7 +78,11 @@ class Ui_PreferencesDialog(object):
         self.confirmButton = QtWidgets.QPushButton(self.groupBox)
         self.confirmButton.setObjectName("confirmButton")
         self.horizontalLayout_2.addWidget(self.confirmButton)
-        self.gridLayout.addLayout(self.horizontalLayout_2, 4, 1, 1, 2)
+        self.gridLayout.addLayout(self.horizontalLayout_2, 5, 1, 1, 2)
+        self.validateSslCheckBox = QtWidgets.QCheckBox(self.groupBox)
+        self.validateSslCheckBox.setChecked(True)
+        self.validateSslCheckBox.setObjectName("validateSslCheckBox")
+        self.gridLayout.addWidget(self.validateSslCheckBox, 4, 0, 1, 3)
         self.verticalLayout_2.addWidget(self.groupBox)
         spacerItem = QtWidgets.QSpacerItem(20, 39, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_2.addItem(spacerItem)
@@ -108,4 +112,5 @@ class Ui_PreferencesDialog(object):
         self.passwordLabel.setText(QtWidgets.QApplication.translate("PreferencesDialog", "Password", None, -1))
         self.testButton.setText(QtWidgets.QApplication.translate("PreferencesDialog", "Test", None, -1))
         self.confirmButton.setText(QtWidgets.QApplication.translate("PreferencesDialog", "Done", None, -1))
+        self.validateSslCheckBox.setText(QtWidgets.QApplication.translate("PreferencesDialog", "Validate SSL", None, -1))
 
