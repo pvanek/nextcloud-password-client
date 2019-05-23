@@ -24,6 +24,7 @@ class MainWindow(QMainWindow):
         self.setupModels()
 
         self.ui.treeView.activated.connect(self.updatePasswordsModel)
+        self.ui.tableView.activated.connect(self.udpateDetailTabs)
         self.ui.actionQuit.triggered.connect(self.closeReally)
         self.ui.actionPreferences.triggered.connect(self.openPreferences)
         self.ui.actionRefresh.triggered.connect(self.refreshInstances)
@@ -63,6 +64,34 @@ class MainWindow(QMainWindow):
         self.listModel.setPasswords(passwords)
 
 
+    def udpateDetailTabs(self, index):
+        logging.debug('MainWindow.udpateDetailTabs called')
+        password = self.listModel.getPassword(index.row())
+
+        self.ui.detailTabWidget.setVisible(True)
+        self.ui.detailTabWidget.setCurrentIndex(0);
+
+        if 'notes' in password:
+            self.ui.notesBrowser.setText(password['notes'])
+            self.ui.tabNotes.setEnabled(True)
+        else:
+            self.ui.tabNotes.setEnabled(False)
+
+        if 'revisions' in password:
+            for i in password['revisions']:
+                for key, val in i.items():
+                    self.ui.revisionsBrowser.append(key + ': ' + str(val))
+                self.ui.revisionsBrowser.append('\n')
+            self.ui.tabRevisions.setEnabled(True)
+        else:
+            self.ui.tabRevisions.setEnabled(False)
+
+        self.ui.detailsBrowser.clear()
+        for key, val in password.items():
+            if key not in ['notes', 'revisions']:
+                self.ui.detailsBrowser.append(key + ': ' + str(val))
+
+
     def readConfig(self):
         self.ncInstances = []
         self.instanceManager.readConfig()
@@ -79,6 +108,8 @@ class MainWindow(QMainWindow):
 
     def setupModels(self):
         self.ui.treeView.blockSignals(True)
+
+        self.ui.detailTabWidget.setVisible(False)
 
         self.treeModel = NCTreeModel(self.ncInstances, self)
         self.listModel = PasswordsModel(self)

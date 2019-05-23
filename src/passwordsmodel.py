@@ -45,47 +45,48 @@ class PasswordsModel(QAbstractTableModel):
     def setPasswords(self, passwordsList=[]):
         logging.debug('PasswordsModel.setPasswords called: ' + str(len(passwordsList)))
         self.beginResetModel()
-        self.modelData = []
-        for i in passwordsList:
-            self.modelData.append({k:v for k, v in i.items() if k in VALID_KEYS})
+        self.modelData = passwordsList
         self.endResetModel()
         logging.debug('PasswordsModel.setPasswords end: ' + str(len(passwordsList)))
 
+
+    def getPassword(self, row):
+        return self.modelData[row]
+
+
     def columnCount(self, parent):
-        if len(self.modelData):
-            logging.debug('PasswordsModel.columnCount: ' + str(len(self.modelData[0])))
-            return len(self.modelData[0])
-        else:
-            logging.debug('PasswordsModel.columnCount: ' + str(0))
-            return 0
+        if (self.rowCount(0)):
+            return len(VALID_KEYS)
+        return 0;
 
     def rowCount(self, parent):
-        logging.debug('PasswordsModel.rowCount: ' + str(len(self.modelData)))
+        #logging.debug('PasswordsModel.rowCount: ' + str(len(self.modelData)))
         return len(self.modelData)
 
     def data(self, index, role):
-        logging.debug('PasswordsModel.data: ' + str(index.isValid()))
+        #logging.debug('PasswordsModel.data: ' + str(index.isValid()))
         if not index.isValid():
             return None
         row = index.row()
         column = index.column()
 
         if role == Qt.DisplayRole:
-            return list(self.modelData[row].values())[column]
+            key = VALID_KEYS[column]
+            return self.modelData[row][key]
 
         return None
 
     def flags(self, index):
-        logging.debug('PasswordsModel.flags called')
+        #logging.debug('PasswordsModel.flags called')
         if not index.isValid():
             return Qt.NoItemFlags
 
         return Qt.ItemIsEnabled | Qt.ItemIsSelectable
 
     def headerData(self, section, orientation, role):
-        logging.debug('PasswordsModel.headerData: ' + str(section))
+        #logging.debug('PasswordsModel.headerData: ' + str(section))
         if orientation == Qt.Horizontal and role == Qt.DisplayRole:
-            return list(self.modelData[0])[section]
+            return VALID_KEYS[section]
 
         return None
 

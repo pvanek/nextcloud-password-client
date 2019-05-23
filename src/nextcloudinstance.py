@@ -26,7 +26,21 @@ class NextcloudInstance:
         logging.debug('NextcloudInstance.get: ' + api_url)
         resp = requests.get(urljoin(self.url, api_url),
                             auth=(self.username, self.password),
-                            verify=self.verifySSL
+                            verify=self.verifySSL,
+                            )
+        if (resp.status_code != 200):
+            logging.warning('NextcloudInstance.get: ConnectionError = ' + resp.status_code)
+            raise ConnectionError('HTTP status code = ' + resp.status_code)
+
+        return resp
+
+
+    def post(self, api_url, body):
+        logging.debug('NextcloudInstance.post: ' + api_url + '; body: ' + str(body))
+        resp = requests.post(urljoin(self.url, api_url),
+                            auth=(self.username, self.password),
+                            verify=self.verifySSL,
+                            data=body
                             )
         if (resp.status_code != 200):
             logging.warning('NextcloudInstance.get: ConnectionError = ' + resp.status_code)
@@ -47,7 +61,8 @@ class NextcloudInstance:
     def getPasswords(self):
         logging.debug('NextcloudInstance.getPasswords called')
         if (not self.password_cache):
-            self.password_cache = self.get('password/list').json()
+            body = {"details":"model+revisions+folder+tags+shares"}
+            self.password_cache = self.post('password/list', body).json()
         else:
             logging.debug('NextcloudInstance.getPasswords cache hit')
         return self.password_cache

@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
-     <widget class="QSplitter" name="splitter">
+     <widget class="QSplitter" name="splitter_2">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -25,10 +25,50 @@
         <bool>true</bool>
        </property>
       </widget>
-      <widget class="QTableView" name="tableView">
-       <property name="alternatingRowColors">
-        <bool>true</bool>
+      <widget class="QSplitter" name="splitter">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
        </property>
+       <widget class="QTableView" name="tableView">
+        <property name="alternatingRowColors">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QTabWidget" name="detailTabWidget">
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <widget class="QWidget" name="tabDetails">
+         <attribute name="title">
+          <string>Details</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout_3">
+          <item row="0" column="0">
+           <widget class="QTextBrowser" name="detailsBrowser"/>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="tabNotes">
+         <attribute name="title">
+          <string>Notes</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout_4">
+          <item row="0" column="0">
+           <widget class="QTextBrowser" name="notesBrowser"/>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="tabRevisions">
+         <attribute name="title">
+          <string>Revisions</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout_5">
+          <item row="0" column="0">
+           <widget class="QTextBrowser" name="revisionsBrowser"/>
+          </item>
+         </layout>
+        </widget>
+       </widget>
       </widget>
      </widget>
     </item>
@@ -66,7 +106,7 @@
   </action>
   <action name="actionRefresh">
    <property name="text">
-    <string>Refresh</string>
+    <string>&amp;Refresh</string>
    </property>
   </action>
  </widget>
