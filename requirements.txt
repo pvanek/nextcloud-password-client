@@ -3,3 +3,4 @@ requests==2.21.0
 appdirs===1.4.3
 dbus-python==1.2.8
 SecretStorage==3.1.1
+keyring==18.0.1
