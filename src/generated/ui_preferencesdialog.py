@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file 'preferencesdialog.ui',
 # licensing of 'preferencesdialog.ui' applies.
 #
-# Created: Thu May 23 09:22:15 2019
+# Created: Tue May 28 13:50:33 2019
 #      by: pyside2-uic  running on PySide2 5.12.3
 #
 # WARNING! All changes made in this file will be lost!

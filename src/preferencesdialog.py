@@ -1,7 +1,7 @@
 import logging
 import copy
 from PySide2.QtWidgets import QDialog, QMessageBox
-from ui_preferencesdialog import Ui_PreferencesDialog
+from generated.ui_preferencesdialog import Ui_PreferencesDialog
 
 from nextcloudinstance import NextcloudInstance
 

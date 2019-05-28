@@ -1,0 +1,7 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+    <file>icons/dialog-password.svg</file>
+    <file>icons/folder.svg</file>
+    <file>icons/network-server.svg</file>
+</qresource>
+</RCC>

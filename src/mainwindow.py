@@ -2,12 +2,13 @@ import logging
 from PySide2.QtWidgets import QMainWindow, QSystemTrayIcon, QMenu
 from PySide2.QtGui import QIcon
 from PySide2.QtCore import Slot, QModelIndex
-from ui_mainwindow import Ui_MainWindow
+from generated.ui_mainwindow import Ui_MainWindow
 from nextcloudinstancemodel import NCTreeModel
 from nextcloudinstance import NextcloudInstance
 from passwordsmodel import PasswordsModel
 from instancemanager import InstanceManager
 from preferencesdialog import PreferencesDialog
+import generated.icons
 
 
 class MainWindow(QMainWindow):
@@ -30,7 +31,7 @@ class MainWindow(QMainWindow):
         self.ui.actionRefresh.triggered.connect(self.refreshInstances)
 
         # Init QSystemTrayIcon
-        self.trayIcon = QSystemTrayIcon(QIcon.fromTheme('dialog-password'), self)
+        self.trayIcon = QSystemTrayIcon(QIcon.fromTheme('dialog-password', QIcon(':/icons/dialog-password.svg')), self)
         systrayMenu = QMenu(self)
         systrayMenu.addAction(self.ui.actionRefresh)
         systrayMenu.addAction(self.ui.actionQuit)
