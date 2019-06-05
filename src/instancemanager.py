@@ -79,4 +79,6 @@ class InstanceManager:
         if not key:
             key = Fernet.generate_key()
             keyring.set_password(InstanceManager.APP_NAME, 'master_key', key.decode('utf-8'))
+            # re-read the key in encoded form
+            key = keyring.get_password(InstanceManager.APP_NAME, 'master_key')
         return key.encode('utf-8')
