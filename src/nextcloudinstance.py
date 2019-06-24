@@ -29,8 +29,8 @@ class NextcloudInstance:
                             verify=self.verifySSL,
                             )
         if (resp.status_code != 200):
-            logging.warning('NextcloudInstance.get: ConnectionError = ' + resp.status_code)
-            raise ConnectionError('HTTP status code = ' + resp.status_code)
+            logging.warning('NextcloudInstance.get: ConnectionError = ' + str(resp.status_code) + " " + resp.text)
+            raise ConnectionError('HTTP status code = ' + str(resp.status_code) + "; " + resp.text)
 
         return resp
 
@@ -43,8 +43,8 @@ class NextcloudInstance:
                             data=body
                             )
         if (resp.status_code != 200):
-            logging.warning('NextcloudInstance.get: ConnectionError = ' + resp.status_code)
-            raise ConnectionError('HTTP status code = ' + resp.status_code)
+            logging.warning('NextcloudInstance.get: ConnectionError = ' + str(resp.status_code) + " " + resp.text)
+            raise ConnectionError('HTTP status code = ' + str(resp.status_code) + "; " + resp.text)
 
         return resp
 
