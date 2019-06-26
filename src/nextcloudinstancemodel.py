@@ -2,8 +2,8 @@ import logging
 
 from PySide2.QtCore import Qt, QAbstractItemModel, QModelIndex
 from PySide2.QtGui import QIcon
-
 import generated.icons
+
 
 class NCTreeItemBase(object):
     def __init__(self, parent=None):
@@ -58,7 +58,8 @@ class NCServerTreeItem(NCTreeItemBase):
         return self.ncInstance.description
 
     def displayIcon(self):
-        return QIcon.fromTheme('network-server', QIcon(':/icons/network-server.svg'))
+        return QIcon.fromTheme('network-server',
+                               QIcon(':/icons/network-server.svg'))
 
     def setupModelData(self):
         try:

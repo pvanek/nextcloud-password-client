@@ -36,6 +36,7 @@ VALID_KEYS = [
     'statusCode',
 ]
 
+
 class PasswordsModel(QAbstractTableModel):
     def __init__(self, parent=None):
         logging.debug('PasswordsModel')
@@ -43,28 +44,26 @@ class PasswordsModel(QAbstractTableModel):
         self.setPasswords()
 
     def setPasswords(self, passwordsList=[]):
-        logging.debug('PasswordsModel.setPasswords called: ' + str(len(passwordsList)))
+        logging.debug('PasswordsModel.setPasswords called: '
+                      + str(len(passwordsList)))
         self.beginResetModel()
         self.modelData = passwordsList
         self.endResetModel()
-        logging.debug('PasswordsModel.setPasswords end: ' + str(len(passwordsList)))
-
+        logging.debug('PasswordsModel.setPasswords end: '
+                      + str(len(passwordsList)))
 
     def getPassword(self, row):
         return self.modelData[row]
 
-
     def columnCount(self, parent):
         if (self.rowCount(0)):
             return len(VALID_KEYS)
-        return 0;
+        return 0
 
     def rowCount(self, parent):
-        #logging.debug('PasswordsModel.rowCount: ' + str(len(self.modelData)))
         return len(self.modelData)
 
     def data(self, index, role):
-        #logging.debug('PasswordsModel.data: ' + str(index.isValid()))
         if not index.isValid():
             return None
         row = index.row()
@@ -77,17 +76,13 @@ class PasswordsModel(QAbstractTableModel):
         return None
 
     def flags(self, index):
-        #logging.debug('PasswordsModel.flags called')
         if not index.isValid():
             return Qt.NoItemFlags
 
         return Qt.ItemIsEnabled | Qt.ItemIsSelectable
 
     def headerData(self, section, orientation, role):
-        #logging.debug('PasswordsModel.headerData: ' + str(section))
         if orientation == Qt.Horizontal and role == Qt.DisplayRole:
             return VALID_KEYS[section]
 
         return None
-
-

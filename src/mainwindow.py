@@ -31,7 +31,9 @@ class MainWindow(QMainWindow):
         self.ui.actionRefresh.triggered.connect(self.refreshInstances)
 
         # Init QSystemTrayIcon
-        self.trayIcon = QSystemTrayIcon(QIcon.fromTheme('dialog-password', QIcon(':/icons/dialog-password.svg')), self)
+        icon = QIcon.fromTheme('dialog-passwords',
+                               QIcon(':/icons/dialog-password.svg'))
+        self.trayIcon = QSystemTrayIcon(icon, self)
         systrayMenu = QMenu(self)
         systrayMenu.addAction(self.ui.actionRefresh)
         systrayMenu.addAction(self.ui.actionQuit)
@@ -39,17 +41,16 @@ class MainWindow(QMainWindow):
         self.trayIcon.show()
         self.trayIcon.activated.connect(self.handleSystray)
 
-
-    # close to systray
     def closeEvent(self, event):
+        """ Close to systray
+        """
         event.ignore()
         self.hide()
 
-
-    # close by Quit action
     def closeReally(self):
+        """ Close by Quit action
+        """
         exit(0)
-
 
     def handleSystray(self):
         if self.isVisible():
@@ -57,20 +58,18 @@ class MainWindow(QMainWindow):
         else:
             self.show()
 
-
     @Slot(QModelIndex)
     def updatePasswordsModel(self, index):
         logging.debug('MainWindow.updatePasswordsModel called')
         passwords = self.treeModel.getPasswords(index)
         self.listModel.setPasswords(passwords)
 
-
     def udpateDetailTabs(self, index):
         logging.debug('MainWindow.udpateDetailTabs called')
         password = self.listModel.getPassword(index.row())
 
         self.ui.detailTabWidget.setVisible(True)
-        self.ui.detailTabWidget.setCurrentIndex(0);
+        self.ui.detailTabWidget.setCurrentIndex(0)
 
         if 'notes' in password:
             self.ui.notesBrowser.setText(password['notes'])
@@ -92,20 +91,17 @@ class MainWindow(QMainWindow):
             if key not in ['notes', 'revisions']:
                 self.ui.detailsBrowser.append(key + ': ' + str(val))
 
-
     def readConfig(self):
         self.ncInstances = []
         self.instanceManager.readConfig()
         for i, val in self.instanceManager.getInstances().items():
             logging.debug('reading: ' + i)
-            self.ncInstances.append(NextcloudInstance(description=val['name'],
-                                                      url=val['url'],
-                                                      username=val['username'],
-                                                      password=val['password'],
-                                                      verifySSL=val['verifySSL']
-                                                     )
-                                   )
-
+            instance = NextcloudInstance(description=val['name'],
+                                         url=val['url'],
+                                         username=val['username'],
+                                         password=val['password'],
+                                         verifySSL=val['verifySSL'])
+            self.ncInstances.append(instance)
 
     def setupModels(self):
         self.ui.treeView.blockSignals(True)
@@ -120,14 +116,12 @@ class MainWindow(QMainWindow):
 
         self.ui.tableView.setModel(self.listModel)
 
-
     def openPreferences(self):
         dia = PreferencesDialog(self.instanceManager.getInstances())
         if (dia.exec_()):
             self.instanceManager.replaceInstances(dia.getInstances())
             self.instanceManager.writeConfig()
             self.refreshInstances()
-
 
     def refreshInstances(self):
         self.readConfig()

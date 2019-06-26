@@ -13,7 +13,8 @@ if __name__ == '__main__':
     QApplication.setApplicationName('Nextcloud Password Client')
 
     app = QApplication(sys.argv)
-    app.setWindowIcon(QIcon.fromTheme('dialog-password', QIcon(':/icons/dialog-password.svg')))
+    app.setWindowIcon(QIcon.fromTheme('dialog-password',
+                                      QIcon(':/icons/dialog-password.svg')))
     m = MainWindow()
     m.show()
 

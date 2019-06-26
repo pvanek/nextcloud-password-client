@@ -1,21 +1,14 @@
 import keyring
 from cryptography.fernet import Fernet
 import appdirs
-import base64
 import json
 import os
 import logging
 import copy
 
 
-""" list of dict items.
-config dict item:
-    - name
-    - url
-    - username
-    - password (encrypted)
-"""
 class InstanceManager:
+
     APP_NAME = 'nextcloud-password-client'
 
     def __init__(self, master_key, config_file_name='nextcloud.json'):
@@ -40,7 +33,7 @@ class InstanceManager:
             for i in self.instances:
                 val = self.decryptValue(self.instances[i]['password'])
                 self.instances[i]['password'] = val
-                if not 'verifySSL' in self.instances[i]:
+                if 'verifySSL' not in self.instances[i]:
                     self.instances[i]['verifySSL'] = True
         print(self.instances)
 
@@ -78,7 +71,9 @@ class InstanceManager:
         key = keyring.get_password(InstanceManager.APP_NAME, 'master_key')
         if not key:
             key = Fernet.generate_key()
-            keyring.set_password(InstanceManager.APP_NAME, 'master_key', key.decode('utf-8'))
+            keyring.set_password(InstanceManager.APP_NAME,
+                                 'master_key',
+                                 key.decode('utf-8'))
             # re-read the key in encoded form
             key = keyring.get_password(InstanceManager.APP_NAME, 'master_key')
         return key.encode('utf-8')

@@ -2,6 +2,7 @@ import logging
 import requests
 from urllib.parse import urljoin
 
+
 class NextcloudInstance:
 
     root_id = '00000000-0000-0000-0000-000000000000'
@@ -16,11 +17,9 @@ class NextcloudInstance:
 
         self.clear()
 
-
     def clear(self):
         self.folder_cache = None
         self.password_cache = None
-
 
     def get(self, api_url):
         logging.debug('NextcloudInstance.get: ' + api_url)
@@ -29,25 +28,29 @@ class NextcloudInstance:
                             verify=self.verifySSL,
                             )
         if (resp.status_code != 200):
-            logging.warning('NextcloudInstance.get: ConnectionError = ' + str(resp.status_code) + " " + resp.text)
-            raise ConnectionError('HTTP status code = ' + str(resp.status_code) + "; " + resp.text)
+            logging.warning('NextcloudInstance.get: ConnectionError = '
+                            + str(resp.status_code) + " " + resp.text)
+            raise ConnectionError('HTTP status code = '
+                                  + str(resp.status_code)
+                                  + "; " + resp.text)
 
         return resp
-
 
     def post(self, api_url, body):
-        logging.debug('NextcloudInstance.post: ' + api_url + '; body: ' + str(body))
+        logging.debug('NextcloudInstance.post: ' + api_url
+                      + '; body: ' + str(body))
         resp = requests.post(urljoin(self.url, api_url),
-                            auth=(self.username, self.password),
-                            verify=self.verifySSL,
-                            data=body
-                            )
+                             auth=(self.username, self.password),
+                             verify=self.verifySSL,
+                             data=body)
         if (resp.status_code != 200):
-            logging.warning('NextcloudInstance.get: ConnectionError = ' + str(resp.status_code) + " " + resp.text)
-            raise ConnectionError('HTTP status code = ' + str(resp.status_code) + "; " + resp.text)
+            logging.warning('NextcloudInstance.get: ConnectionError = '
+                            + str(resp.status_code) + " " + resp.text)
+            raise ConnectionError('HTTP status code = '
+                                  + str(resp.status_code)
+                                  + "; " + resp.text)
 
         return resp
-
 
     def getFolders(self):
         logging.debug('NextcloudInstance.getFolders called')
@@ -57,16 +60,14 @@ class NextcloudInstance:
             logging.debug('NextcloudInstance.getFolders cache hit')
         return self.folder_cache
 
-
     def getPasswords(self):
         logging.debug('NextcloudInstance.getPasswords called')
         if (not self.password_cache):
-            body = {"details":"model+revisions+folder+tags+shares"}
+            body = {"details": "model+revisions+folder+tags+shares"}
             self.password_cache = self.post('password/list', body).json()
         else:
             logging.debug('NextcloudInstance.getPasswords cache hit')
         return self.password_cache
-
 
     def getFoldersTree(self):
         logging.debug('NextcloudInstance.getFoldersTree called')
@@ -89,15 +90,15 @@ class NextcloudInstance:
                 forest.append(node)
             else:
                 parent = nodes[parent_id]
-                if not 'children' in parent:
+                if 'children' not in parent:
                     parent['children'] = []
                 parent['children'].append(node)
 
         return forest
 
-
     def getPasswordsForFolderId(self, folder_id):
-        logging.debug('NextcloudInstance.getPasswordsForFolderId called: ' + folder_id)
+        logging.debug('NextcloudInstance.getPasswordsForFolderId called: '
+                      + folder_id)
         passwords = self.getPasswords()
         ret = []
         for i in passwords:
