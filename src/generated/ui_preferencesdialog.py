@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file 'preferencesdialog.ui',
 # licensing of 'preferencesdialog.ui' applies.
 #
-# Created: Tue May 28 13:50:33 2019
+# Created: Wed Jun 26 21:19:06 2019
 #      by: pyside2-uic  running on PySide2 5.12.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -97,6 +97,15 @@ class Ui_PreferencesDialog(object):
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL("accepted()"), PreferencesDialog.accept)
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL("rejected()"), PreferencesDialog.reject)
         QtCore.QMetaObject.connectSlotsByName(PreferencesDialog)
+        PreferencesDialog.setTabOrder(self.instancesListWidget, self.addInstanceButton)
+        PreferencesDialog.setTabOrder(self.addInstanceButton, self.deteleInstanceButton)
+        PreferencesDialog.setTabOrder(self.deteleInstanceButton, self.nameEdit)
+        PreferencesDialog.setTabOrder(self.nameEdit, self.urlEdit)
+        PreferencesDialog.setTabOrder(self.urlEdit, self.usernameEdit)
+        PreferencesDialog.setTabOrder(self.usernameEdit, self.passwordEdit)
+        PreferencesDialog.setTabOrder(self.passwordEdit, self.validateSslCheckBox)
+        PreferencesDialog.setTabOrder(self.validateSslCheckBox, self.testButton)
+        PreferencesDialog.setTabOrder(self.testButton, self.confirmButton)
 
     def retranslateUi(self, PreferencesDialog):
         PreferencesDialog.setWindowTitle(QtWidgets.QApplication.translate("PreferencesDialog", "Dialog", None, -1))

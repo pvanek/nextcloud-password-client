@@ -168,6 +168,18 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>instancesListWidget</tabstop>
+  <tabstop>addInstanceButton</tabstop>
+  <tabstop>deteleInstanceButton</tabstop>
+  <tabstop>nameEdit</tabstop>
+  <tabstop>urlEdit</tabstop>
+  <tabstop>usernameEdit</tabstop>
+  <tabstop>passwordEdit</tabstop>
+  <tabstop>validateSslCheckBox</tabstop>
+  <tabstop>testButton</tabstop>
+  <tabstop>confirmButton</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
