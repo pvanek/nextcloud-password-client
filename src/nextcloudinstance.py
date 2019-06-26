@@ -101,6 +101,6 @@ class NextcloudInstance:
         passwords = self.getPasswords()
         ret = []
         for i in passwords:
-            if i['folder'] == folder_id:
+            if i['folder']['id'] == folder_id:
                 ret.append(i)
         return ret
